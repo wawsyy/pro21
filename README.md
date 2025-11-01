@@ -108,11 +108,12 @@ strength-progress-tracker/
 
 ## Technology Stack
 
-- **Smart Contracts**: Solidity 0.8.27
-- **FHE Encryption**: Zama FHEVM
-- **Frontend**: Next.js 15, React 19
-- **Wallet**: RainbowKit, Wagmi
-- **Blockchain**: Ethereum (Sepolia Testnet)
+- **Smart Contracts**: Solidity 0.8.27 with FHE support
+- **FHE Encryption**: Zama FHEVM for homomorphic encryption
+- **Frontend**: Next.js 15, React 19 with TypeScript
+- **Wallet Integration**: RainbowKit, Wagmi v2
+- **Blockchain**: Ethereum (Sepolia Testnet, Local Hardhat)
+- **Development**: Hardhat, TypeChain, Ethers.js v6
 
 ## License
 
