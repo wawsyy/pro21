@@ -75,16 +75,16 @@ An encrypted strength training progress tracker built with FHEVM (Fully Homomorp
 ```
 strength-progress-tracker/
 ├── contracts/                    # Smart contract source files
-│   └── StrengthProgressTracker.sol
+�?  └── StrengthProgressTracker.sol
 ├── deploy/                       # Deployment scripts
 ├── test/                         # Test files
-│   ├── StrengthProgressTracker.ts
-│   └── StrengthProgressTrackerSepolia.ts
+�?  ├── StrengthProgressTracker.ts
+�?  └── StrengthProgressTrackerSepolia.ts
 ├── frontend/                     # Next.js frontend application
-│   ├── app/                      # Next.js app directory
-│   ├── components/               # React components
-│   ├── hooks/                    # Custom React hooks
-│   └── fhevm/                    # FHEVM integration
+�?  ├── app/                      # Next.js app directory
+�?  ├── components/               # React components
+�?  ├── hooks/                    # Custom React hooks
+�?  └── fhevm/                    # FHEVM integration
 ├── hardhat.config.ts             # Hardhat configuration
 └── package.json                  # Dependencies and scripts
 ```
@@ -129,9 +129,10 @@ This project is licensed under the BSD-3-Clause-Clear License.
 **Built with ❤️ using Zama FHEVM**
 
 
-<!-- dev-4 -->
-<!-- dev-8 -->
-<!-- dev-12 -->
-<!-- dev-16 -->
-<!-- dev-20 -->
-<!-- dev-24 -->
+<!-- dev-9 -->
+<!-- dev-9 -->
+<!-- dev-9 -->
+<!-- dev-9 -->
+<!-- dev-9 -->
+<!-- dev-9 -->
+
