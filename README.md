@@ -93,8 +93,8 @@ strength-progress-tracker/
 
 1. **Connect Wallet**: Click the "Connect Wallet" button in the top right corner
 2. **Record Training**: Enter your max weight, sets, and reps, then click "Record Training Session"
-3. **View History**: See all your encrypted training records
-4. **Decrypt Data**: Click "Decrypt" on any record to view the decrypted values
+3. **View History**: See all your encrypted training records in chronological order
+4. **Decrypt Data**: Click "Decrypt" on any record to view the decrypted values using your private key
 
 ## Available Scripts
 
