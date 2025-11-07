@@ -12,9 +12,14 @@ const FILTERED_ERROR_PATTERNS = [
   /Analytics SDK/i,
   /Failed to fetch.*coinbase/i,
   /ERR_BLOCKED_BY_RESPONSE.*NotSameOriginAfterDefaultedToSameOriginByCoep/i,
+  /ERR_CONNECTION_CLOSED/i,
+  /ERR_CONNECTION_RESET/i,
   /cca-lite\.coinbase\.com/i,
   /coinbase.*analytics/i,
   /AnalyticsSDKApiError/i,
+  // FHEVM relayer connection errors (will retry or use mock mode)
+  /relayer\.testnet\.zama\.cloud/i,
+  /relayer\.zama\.cloud/i,
   // FHEVM mock mode event parsing errors (these are expected in mock mode)
   /Parse event.*backward order/i,
   /could not coalesce error/i,

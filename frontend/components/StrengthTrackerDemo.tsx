@@ -151,11 +151,39 @@ export const StrengthTrackerDemo = () => {
           className={buttonClass}
           disabled={!strengthTracker.canRecord}
           onClick={handleRecord}
+          title={
+            !strengthTracker.canRecord
+              ? `Cannot record: ${
+                  !strengthTracker.address
+                    ? "Contract not deployed"
+                    : !fhevmInstance
+                    ? "FHEVM not initialized"
+                    : !ethersSigner
+                    ? "Wallet not connected"
+                    : strengthTracker.isRecording
+                    ? "Already recording"
+                    : "Loading..."
+                }`
+              : "Record your training session"
+          }
         >
           {strengthTracker.isRecording
             ? "Recording..."
             : "Record Training Session"}
         </button>
+        {!strengthTracker.canRecord && (
+          <p className="mt-2 text-sm text-gray-500">
+            {!strengthTracker.address
+              ? "⚠️ Contract not deployed on this network"
+              : !fhevmInstance
+              ? "⏳ Initializing FHEVM encryption..."
+              : !ethersSigner
+              ? "⚠️ Please connect your wallet"
+              : strengthTracker.isRecording
+              ? "⏳ Recording in progress..."
+              : "⏳ Loading..."}
+          </p>
+        )}
       </div>
 
       <div className="col-span-full bg-white rounded-lg shadow-lg p-6">
