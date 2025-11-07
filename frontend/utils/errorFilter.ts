@@ -125,7 +125,17 @@ export function initErrorFiltering() {
         return await originalFetch.apply(window, args);
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
-        const url = typeof args[0] === "string" ? args[0] : args[0]?.url || "";
+        // Handle different types of fetch first argument: string | Request | URL
+        let url = "";
+        if (typeof args[0] === "string") {
+          url = args[0];
+        } else if (args[0] instanceof Request) {
+          url = args[0].url;
+        } else if (args[0] instanceof URL) {
+          url = args[0].toString();
+        } else if (args[0] && typeof args[0] === "object" && "url" in args[0]) {
+          url = String((args[0] as { url?: string }).url || "");
+        }
         if (shouldFilterError(`${errorMessage} ${url}`)) {
           // Silently ignore filtered errors
           throw new Error("Filtered network error");
