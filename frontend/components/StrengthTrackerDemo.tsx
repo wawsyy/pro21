@@ -154,7 +154,7 @@ export const StrengthTrackerDemo = () => {
           title={
             !strengthTracker.canRecord
               ? `Cannot record: ${
-                  !strengthTracker.address
+                  !strengthTracker.contractAddress
                     ? "Contract not deployed"
                     : !fhevmInstance
                     ? "FHEVM not initialized"
@@ -173,7 +173,7 @@ export const StrengthTrackerDemo = () => {
         </button>
         {!strengthTracker.canRecord && (
           <p className="mt-2 text-sm text-gray-500">
-            {!strengthTracker.address
+            {!strengthTracker.contractAddress
               ? "⚠️ Contract not deployed on this network"
               : !fhevmInstance
               ? "⏳ Initializing FHEVM encryption..."
