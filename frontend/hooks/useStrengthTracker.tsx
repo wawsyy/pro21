@@ -508,10 +508,24 @@ export const useStrengthTracker = (parameters: {
             return;
           }
 
-          const decryptedWeight =
-            weightResult[record.weightHandle] ?? BigInt(0);
-          const decryptedSets = setsResult[record.setsHandle] ?? BigInt(0);
-          const decryptedReps = repsResult[record.repsHandle] ?? BigInt(0);
+          // Convert decryption results to bigint, handling string | bigint | boolean types
+          const toBigInt = (value: string | bigint | boolean | undefined): bigint => {
+            if (value === undefined || value === null) return BigInt(0);
+            if (typeof value === "bigint") return value;
+            if (typeof value === "boolean") return value ? BigInt(1) : BigInt(0);
+            if (typeof value === "string") {
+              try {
+                return BigInt(value);
+              } catch {
+                return BigInt(0);
+              }
+            }
+            return BigInt(0);
+          };
+
+          const decryptedWeight = toBigInt(weightResult[record.weightHandle]);
+          const decryptedSets = toBigInt(setsResult[record.setsHandle]);
+          const decryptedReps = toBigInt(repsResult[record.repsHandle]);
 
           setRecords((prev) => {
             const updated = [...prev];
