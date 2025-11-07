@@ -24,6 +24,8 @@ export const StrengthTrackerDemo = () => {
 
   const {
     instance: fhevmInstance,
+    error: fhevmError,
+    status: fhevmStatus,
   } = useFhevm({
     provider,
     chainId,
@@ -156,8 +158,12 @@ export const StrengthTrackerDemo = () => {
               ? `Cannot record: ${
                   !strengthTracker.contractAddress
                     ? "Contract not deployed"
+                    : fhevmStatus === "error"
+                    ? "FHEVM initialization failed"
                     : !fhevmInstance
-                    ? "FHEVM not initialized"
+                    ? fhevmStatus === "loading"
+                      ? "FHEVM initializing..."
+                      : "FHEVM not initialized"
                     : !ethersSigner
                     ? "Wallet not connected"
                     : strengthTracker.isRecording
@@ -172,17 +178,36 @@ export const StrengthTrackerDemo = () => {
             : "Record Training Session"}
         </button>
         {!strengthTracker.canRecord && (
-          <p className="mt-2 text-sm text-gray-500">
-            {!strengthTracker.contractAddress
-              ? "⚠️ Contract not deployed on this network"
-              : !fhevmInstance
-              ? "⏳ Initializing FHEVM encryption..."
-              : !ethersSigner
-              ? "⚠️ Please connect your wallet"
-              : strengthTracker.isRecording
-              ? "⏳ Recording in progress..."
-              : "⏳ Loading..."}
-          </p>
+          <div className="mt-2">
+            <p className="text-sm text-gray-500">
+              {!strengthTracker.contractAddress
+                ? "⚠️ Contract not deployed on this network"
+                : fhevmStatus === "error" && fhevmError
+                ? `❌ FHEVM initialization failed: ${fhevmError.message}. ${
+                    fhevmError.message.includes("relayer") ||
+                    fhevmError.message.includes("Relayer")
+                      ? "Relayer service may be temporarily unavailable. Please try again later."
+                      : "Please check your network connection and try again."
+                  }`
+                : !fhevmInstance
+                ? fhevmStatus === "loading"
+                  ? "⏳ Initializing FHEVM encryption (this may take a moment)..."
+                  : "⏳ Waiting for FHEVM initialization..."
+                : !ethersSigner
+                ? "⚠️ Please connect your wallet"
+                : strengthTracker.isRecording
+                ? "⏳ Recording in progress..."
+                : "⏳ Loading..."}
+            </p>
+            {fhevmStatus === "error" && fhevmError && (
+              <button
+                className="mt-2 px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded hover:bg-gray-200"
+                onClick={() => window.location.reload()}
+              >
+                Retry
+              </button>
+            )}
+          </div>
         )}
       </div>
 
