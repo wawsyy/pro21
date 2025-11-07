@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import {
   createContext,
   ReactNode,
+  RefObject,
   useContext,
   useEffect,
   useRef,
