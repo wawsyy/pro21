@@ -35,6 +35,11 @@ if (!fs.existsSync(outdir)) {
 const deploymentsDir = path.join(dir, "deployments");
 
 function deployOnHardhatNode() {
+  // Skip deployment in CI/CD environments (Vercel, GitHub Actions, etc.)
+  if (process.env.CI || process.env.VERCEL || process.env.VERCEL_ENV) {
+    console.log("Skipping Hardhat node deployment in CI/CD environment");
+    return;
+  }
   if (process.platform === "win32") {
     // Not supported on Windows
     return;
@@ -54,8 +59,11 @@ function readDeployment(chainName, chainId, contractName, optional) {
   const chainDeploymentDir = path.join(deploymentsDir, chainName);
 
   if (!fs.existsSync(chainDeploymentDir) && chainId === 31337) {
-    // Try to auto-deploy the contract on hardhat node!
-    deployOnHardhatNode();
+    // Only try to auto-deploy in local development, not in CI/CD
+    if (!process.env.CI && !process.env.VERCEL && !process.env.VERCEL_ENV) {
+      // Try to auto-deploy the contract on hardhat node!
+      deployOnHardhatNode();
+    }
   }
 
   if (!fs.existsSync(chainDeploymentDir)) {
@@ -96,9 +104,22 @@ if (!deployLocalhost) {
       process.exit(0);
     }
   }
-  console.error(`${line}No deployment found. Please deploy the contract first.${line}`);
-  console.error(`Deployments directory: ${deploymentsDir}`);
-  process.exit(1);
+  // In CI/CD, try to use sepolia deployment as fallback
+  if (process.env.CI || process.env.VERCEL || process.env.VERCEL_ENV) {
+    const sepoliaDeployment = readDeployment("sepolia", 11155111, CONTRACT_NAME, true);
+    if (sepoliaDeployment) {
+      console.log("Using Sepolia deployment as fallback in CI/CD environment");
+      deployLocalhost = sepoliaDeployment;
+    } else {
+      console.error(`${line}No deployment found in CI/CD environment. Please ensure deployments are committed to the repository.${line}`);
+      console.error(`Deployments directory: ${deploymentsDir}`);
+      process.exit(1);
+    }
+  } else {
+    console.error(`${line}No deployment found. Please deploy the contract first.${line}`);
+    console.error(`Deployments directory: ${deploymentsDir}`);
+    process.exit(1);
+  }
 }
 
 // Sepolia is optional
