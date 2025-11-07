@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+artifacts/
+types/
+fhevmTemp/
+
+# Generated files
+frontend/abi/
+types/
+
+# Config files
+hardhat.config.ts
+next.config.ts

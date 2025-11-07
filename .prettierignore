@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+artifacts/
+types/
+fhevmTemp/
+coverage/
+
+# Generated files
+frontend/abi/
+types/
+
+# Config files that should not be formatted
+hardhat.config.ts
+next.config.ts

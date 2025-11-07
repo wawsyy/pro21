@@ -1,0 +1,11 @@
+# Ignore files that shouldn't be deployed to Vercel
+node_modules
+.next
+.cache
+*.log
+.env.local
+.env*.local
+
+# But keep deployments directory - it's needed for build
+!deployments/
+

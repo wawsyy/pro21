@@ -11,12 +11,4 @@ export default function Home() {
 }
 
 
-// dev-24
-// dev-24
-// dev-24
-// dev-24
-// dev-24
-
-
-
 
